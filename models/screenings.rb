@@ -41,12 +41,21 @@ class Screening
     return (customers.map { |customer| Customer.new(customer) }).length()
   end
 
-# return screening with most customers for given film
-# had hundreds of efforts at getting this function working in various ways
-  def self.get_screenings_for_movie(film)
-    sql = "SELECT * FROM screenings WHERE film_id = $1"
-    values = [@film_id]
-    return SqlRunner.run(sql, values)
-
+  def self.all()
+    sql = "SELECT * FROM screenings;"
+    values = []
+    screenings = SqlRunner.run(sql, values)
+    result = screenings.map { |screening| Screening.new(screening)}
+    return result
   end
+
+  # Write a method that finds out what is the most popular time (most tickets sold) for a given film
+  ##doesn't work yet##
+  def most_popular()
+    sql = "SELECT customer_id COUNT(*) AS count FROM tickets WHERE film_id = tickets.film_id AND film_id = $1 GROUP BY screening_id;"
+    values = [@film_id]
+    most_pop = SqlRunner.run(sql, values)
+    return most_pop.first
+  end
+
 end

@@ -60,6 +60,7 @@ class Customer
   def buy_ticket(film)
     if @funds >= film.price
       @funds -= film.price
+      update()
     else
       return "Not enough money"
     end

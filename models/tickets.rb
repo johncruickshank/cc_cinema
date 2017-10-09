@@ -22,7 +22,7 @@ class Ticket
     sql = "SELECT * FROM tickets"
     values = []
     tickets = SqlRunner.run(sql, values)
-    result = users.map { |ticket| Ticket.new(ticket) }
+    result = tickets.map { |ticket| Ticket.new(ticket) }
     return result
   end
 
@@ -43,5 +43,7 @@ class Ticket
     values = [@id]
     SqlRunner.run(sql, values)
   end
+
+  
 
 end
